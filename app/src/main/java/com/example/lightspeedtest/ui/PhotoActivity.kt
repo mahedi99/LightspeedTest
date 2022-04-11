@@ -11,7 +11,7 @@ import com.example.lightspeedtest.R
 import com.example.lightspeedtest.viewModel.PhotoViewModel
 import com.example.lightspeedtest.viewModel.PhotoViewModelFactory
 
-class MainActivity : AppCompatActivity() {
+class PhotoActivity : AppCompatActivity() {
     private lateinit var photoAdapter: PhotoAdapter
     private val photoViewModel: PhotoViewModel by viewModels {
         PhotoViewModelFactory((application as PhotoApplication).repository)
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_photo)
 
         initView()
 
@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-
         newItemButton = findViewById(R.id.addNewBtn)
         newItemButton.setOnClickListener {
             photoViewModel.getPhotos(true).observe(this) { photos ->
