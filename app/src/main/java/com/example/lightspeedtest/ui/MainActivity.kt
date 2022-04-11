@@ -1,27 +1,53 @@
 package com.example.lightspeedtest.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.lightspeedtest.PhotoApplication
+import com.example.lightspeedtest.R
 import com.example.lightspeedtest.viewModel.PhotoViewModel
 import com.example.lightspeedtest.viewModel.PhotoViewModelFactory
-import com.example.lightspeedtest.R
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var photoAdapter: PhotoAdapter
     private val photoViewModel: PhotoViewModel by viewModels {
         PhotoViewModelFactory((application as PhotoApplication).repository)
     }
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var newItemButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initView()
+
         photoViewModel.getPhotos(false).observe(this) { photos ->
-            photos.data?.forEach {
-                Log.d("All Photos ---->", it.author)
+            photos.data?.let {
+                photoAdapter.addItems(it)
             }
         }
+    }
+
+    private fun initView() {
+
+        newItemButton = findViewById(R.id.addNewBtn)
+        newItemButton.setOnClickListener {
+            photoViewModel.getPhotos(true).observe(this) { photos ->
+                photos.data?.let { photos ->
+                    photoAdapter.addItems(photos)
+                    photoAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+
+        recyclerView = findViewById(R.id.recyclerview)
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(applicationContext)
+        recyclerView.layoutManager = layoutManager
+        photoAdapter = PhotoAdapter()
+        recyclerView.adapter = photoAdapter
     }
 }
