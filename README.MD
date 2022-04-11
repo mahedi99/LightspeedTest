@@ -1,4 +1,4 @@
-Lightspeed Test
+### Lightspeed Test
 
 =====================
 
@@ -19,16 +19,23 @@ example the activity.
 In the ViewModel layer, it plays a role to be a middleman who connects the Model layer to View layer.
 
 
-#Database
+## Database
 To cache WEB response data, the Room library has been used.
 
-#Networks
-To connect to Web Service, the Retrofit library has been use. And, Gosn was use to parse Json 
+## Networks
+To connect to Web Service, the Retrofit library has been use. And, Gosn was use to parse Json
 to Kotlin Object.
 
-##Tests
+## Tests
 To test the UI, the Espresso library has been used. Where both Recyclerview and Room database has
 been tested.
 
+## External Libraries
+1. Retrofit
+2. Glide
+3. GSON
+4. Junit
 
+## Demo
 
+<img src="https://github.com/mahedi99/LightspeedTest/blob/master/demo.png" width="250">
