@@ -1,4 +1,4 @@
-##Lightspeed Test
+Lightspeed Test
 
 =====================
 
