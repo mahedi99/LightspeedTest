@@ -18,13 +18,10 @@ class PhotoRepository(
             if (results.isSuccessful) {
                 results.body()?.let {
                     val randomPhoto = it.random()
-                    Log.d("Random Photo ---->", randomPhoto.author)
                     photoDao.insert(randomPhoto)
-                    emit(PhotoResponse.Success(photoDao.getPhotos()))
                 }
-            } else {
-                emit(PhotoResponse.Success(photoDao.getPhotos()))
             }
+            emit(PhotoResponse.Success(photoDao.getPhotos()))
         }.flowOn(Dispatchers.IO)
     }
 
@@ -32,5 +29,9 @@ class PhotoRepository(
         return flow<PhotoResponse<List<Photo>>> {
             emit(PhotoResponse.Success(photoDao.getPhotos()))
         }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun deleteItem(id: String){
+        return photoDao.deleteItemById(id)
     }
 }
