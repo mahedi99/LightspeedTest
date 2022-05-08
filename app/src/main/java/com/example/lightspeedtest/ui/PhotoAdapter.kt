@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lightspeedtest.R
 import com.example.lightspeedtest.data.model.Photo
+import com.example.lightspeedtest.viewModel.PhotoViewModel
 
-class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter(private val viewModel: PhotoViewModel) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     private var photoList: List<Photo> = emptyList()
 
@@ -50,5 +51,9 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
     // Displays data at a certain position
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         holder.bind(photoList[position])
+        holder.itemView.setOnLongClickListener{
+            viewModel.deleteItemById(photoList[position].id)
+            true
+        }
     }
 }

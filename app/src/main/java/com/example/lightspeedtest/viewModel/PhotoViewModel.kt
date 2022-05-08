@@ -23,6 +23,12 @@ class PhotoViewModel(
         return photos
     }
 
+    fun deleteItemById(id: String) {
+        viewModelScope.launch {
+            photoRepository.deleteItem(id)
+        }
+    }
+
     private fun loadLocalPhoto() {
         viewModelScope.launch {
             photoRepository.getLocalPhotos().collect{

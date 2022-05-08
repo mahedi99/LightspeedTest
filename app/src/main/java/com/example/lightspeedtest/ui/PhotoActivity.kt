@@ -46,7 +46,7 @@ class PhotoActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerview)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(applicationContext)
         recyclerView.layoutManager = layoutManager
-        photoAdapter = PhotoAdapter()
+        photoAdapter = PhotoAdapter(photoViewModel)
         recyclerView.adapter = photoAdapter
     }
 }
